@@ -1,15 +1,18 @@
 Package.describe({
     git: "https://github.com/meteorwebcomponents/compiler.git",
     name: "mwc:compiler",
-    summary: "mwc template compiler",
+    summary: "mwc compiler",
     version: "0.0.1"
 });
 
+Package.onUse(function(api) {
+    api.use("isobuild:compiler-plugin@1.0.0");
+});
+
 Package.registerBuildPlugin({
-    name: "mwc_template_compiler",
+    name: "mwc_compiler",
     npmDependencies: {},
     sources: [
-        "plug_in/mwc_template_compiler.js"
-    ],
-    use: ["isobuild:compiler-plugin@1.0.0", "isobuild:linter-plugin@1.0.0"]
+        "plug_in/mwc_compiler.js"
+    ]
 });
