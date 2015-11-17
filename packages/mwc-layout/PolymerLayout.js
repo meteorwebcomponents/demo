@@ -1,4 +1,4 @@
-PolymerLayout = function() {
+var PolymerLayout = function() {
     this.currentLayout = null;
 };
 
@@ -27,3 +27,5 @@ PolymerLayout.prototype.render = function(layout, opt, rerender) {
         }
     }
 };
+
+mwcLayout = new PolymerLayout();

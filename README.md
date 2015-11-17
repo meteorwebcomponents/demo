@@ -1,6 +1,4 @@
-var A = new PolymerLayout()
-
-A.render("profile", {
+mwcLayout.render("profile", {
     region: {
         img: new Registered()
     }
@@ -8,7 +6,7 @@ A.render("profile", {
 
 document.registerElement('un-registered-test', UnRegistered); // Polymer.Class()
 
-A.render("profile", {
+mwcLayout.render("profile", {
     region: {
         img: new UnRegistered()
     }
