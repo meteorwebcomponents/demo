@@ -11,7 +11,15 @@
     <script>
     Polymer({
 
-        is: "text-test"
+        is: "text-test",
+
+        listeners: {
+            "rerender": "urlChange"
+        },
+
+        urlChange: function(e) {
+            console.log("urlChange", e.detail);
+        }
 
     });
     </script>

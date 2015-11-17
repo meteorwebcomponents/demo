@@ -14,6 +14,12 @@ PolymerLayout.prototype.render = function(layout, opt) {
             document.querySelector('mwc-layout[id="' + layout + '"]').active = true;
 
             this.currentLayout = layout;
+        } else {
+            if (opt.hasOwnProperty("region")) {
+                document.querySelector('mwc-layout[id="' + layout + '"]').rerender(Object.keys(opt.region));
+            } else {
+                console.log("region property notFound")
+            }
         }
     }
 };
