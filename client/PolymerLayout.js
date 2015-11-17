@@ -2,7 +2,7 @@ PolymerLayout = function() {
     this.currentLayout = null;
 };
 
-PolymerLayout.prototype.render = function(layout, opt) {
+PolymerLayout.prototype.render = function(layout, opt, rerender) {
     if (document.querySelector('mwc-layout[id="' + layout + '"]')) {
         document.querySelector('mwc-layout[id="' + layout + '"]').render(opt);
 
@@ -15,10 +15,14 @@ PolymerLayout.prototype.render = function(layout, opt) {
 
             this.currentLayout = layout;
         } else {
-            if (opt.hasOwnProperty("region")) {
-                document.querySelector('mwc-layout[id="' + layout + '"]').rerender(Object.keys(opt.region));
+            if (rerender) {
+                document.querySelector('mwc-layout[id="' + layout + '"]').rerender(rerender);
             } else {
-                console.log("region property notFound")
+                if (opt.hasOwnProperty("region")) {
+                    document.querySelector('mwc-layout[id="' + layout + '"]').rerender(Object.keys(opt.region));
+                } else {
+                    console.log("region property notFound")
+                }
             }
         }
     }
