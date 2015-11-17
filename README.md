@@ -1,3 +1,5 @@
+mwcLayout.render("profile", {region:{text: "img-test"}}, [])
+
 mwcLayout.render("profile", {
     region: {
         img: new Registered()
