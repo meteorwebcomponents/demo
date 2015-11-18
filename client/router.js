@@ -12,7 +12,8 @@ FlowRouter.route("/", {
         console.log("@home");
 
         mwcLayout.render("profile", {
-            img: "img-test"
+            img: "img-test",
+            text: "text-test"
         })
     }
 });
