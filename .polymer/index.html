@@ -51,7 +51,7 @@
 
     <script>
     document.querySelector("#div-button-1").addEventListener("click", function(e) {
-        console.log("#div-button-2");
+        console.log("#div-button-1 clicked");
 
         document.querySelector("#mwc-card-router").sharedElements = {
             'ripple': e.currentTarget,
@@ -62,7 +62,7 @@
     }, false);
 
     document.querySelector("#div-button-2").addEventListener("click", function(e) {
-        console.log("#div-button-2");
+        console.log("#div-button-2 clicked");
 
         document.querySelector("#mwc-card-router").sharedElements = {
             'ripple': e.currentTarget,
@@ -75,8 +75,10 @@
 
     <mwc-layout id="profile">
         <div>#dynamic region</div>
-        <div region="img"></div>
-        <div region="text"></div>
+        <div class="horizontal justified layout">
+            <div region="img"></div>
+            <div region="text"></div>
+        </div>
 
         <br>
 
