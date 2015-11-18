@@ -1,6 +1,6 @@
 accounts-google
 accounts-password
-blaze-html-templates    # Compile .html files into Meteor Blaze views
+# blaze-html-templates    # Compile .html files into Meteor Blaze views
 check
 http
 jquery                  # Helpful client-side library
@@ -9,5 +9,10 @@ mobile-experience
 mongo                   # The database Meteor supports right now
 random
 session                 # Client-side reactive dictionary for your app
-standard-minifiers      # JS/CSS minifiers run for production mode
+# standard-minifiers      # JS/CSS minifiers run for production mode
+# templating
 tracker                 # Meteor's client-side reactive programming library
+
+kadira:flow-router
+mwc:compiler
+# mwc:layout

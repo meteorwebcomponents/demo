@@ -1,0 +1,27 @@
+<dom-module id="text-test">
+
+    <style>
+
+    </style>
+
+    <template>
+        text-test
+    </template>
+
+    <script>
+    Polymer({
+
+        is: "text-test",
+
+        listeners: {
+            "rerender": "urlChange"
+        },
+
+        urlChange: function(e) {
+            console.log("urlChange", e.detail);
+        }
+
+    });
+    </script>
+
+</dom-module>

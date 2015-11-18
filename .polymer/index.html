@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+    <title>MWC</title>
+    <link href="/img/icon.png" rel="shortcut icon">
+
+    <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+</head>
+
+<body>
+    <style>
+    html,
+    body {
+        background: #EEE;
+        font-family: 'RobotoDraft', sans-serif;
+        overflow: hidden;
+    }
+    
+    .white {
+        background: white !important;
+        color: black !important;
+    }
+    </style>
+
+    <mwc-layout id="sign-in">
+        <neon-animated-pages class="fit" id="mwc-card-selector" selected="0">
+            <mwc-card-router id="mwc-card-router">
+                <div class="fit layout vertical">
+                    <div class="center-center flex layout vertical">
+                        mwc-card-router-body
+                    </div>
+
+                    <div class="center center-justified horizontal layout">
+                        <div id="div-button-1" style="cursor: pointer; padding: 16px;">div-button-1</div>
+                        <div id="div-button-2" style="cursor: pointer; padding: 16px;">div-button-2</div>
+                    </div>
+                </div>
+            </mwc-card-router>
+
+            <mwc-card-route ripple_class="white">
+                <div region="body_A"></div>
+            </mwc-card-route>
+
+            <mwc-card-route ripple_class="white">
+                <div region="body_Z"></div>
+            </mwc-card-route>
+        </neon-animated-pages>
+    </mwc-layout>
+
+    <script>
+    document.querySelector("#div-button-1").addEventListener("click", function(e) {
+        console.log("#div-button-2");
+
+        document.querySelector("#mwc-card-router").sharedElements = {
+            'ripple': e.currentTarget,
+            'reverse-ripple': e.currentTarget
+        };
+
+        document.querySelector("#mwc-card-selector").selected = 1;
+    }, false);
+
+    document.querySelector("#div-button-2").addEventListener("click", function(e) {
+        console.log("#div-button-2");
+
+        document.querySelector("#mwc-card-router").sharedElements = {
+            'ripple': e.currentTarget,
+            'reverse-ripple': e.currentTarget
+        };
+
+        document.querySelector("#mwc-card-selector").selected = 2;
+    }, false);
+    </script>
+
+    <mwc-layout id="profile">
+        #region
+        <div region="img"></div>
+        <div region="text"></div>
+
+        <br> #route
+        <a href="/sign-in">sign-in</a>
+    </mwc-layout>
+</body>
+
+</html>

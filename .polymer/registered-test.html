@@ -1,0 +1,27 @@
+<dom-module id="registered-test">
+
+    <style>
+
+    </style>
+
+    <template>
+        registered-test
+    </template>
+
+    <script>
+    Registered = Polymer({
+
+        is: "registered-test",
+
+        listeners: {
+            "rerender": "urlChange"
+        },
+
+        urlChange: function(e) {
+            console.log("urlChange", e.detail);
+        }
+
+    });
+    </script>
+
+</dom-module>

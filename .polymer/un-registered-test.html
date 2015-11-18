@@ -1,0 +1,27 @@
+<dom-module id="un-registered-test">
+
+    <style>
+
+    </style>
+
+    <template>
+        un-registered-test
+    </template>
+
+    <script>
+    UnRegistered = Polymer.Class({
+
+        is: "un-registered-test",
+
+        listeners: {
+            "rerender": "urlChange"
+        },
+
+        urlChange: function(e) {
+            console.log("urlChange", e.detail);
+        }
+
+    });
+    </script>
+
+</dom-module>

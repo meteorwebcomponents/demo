@@ -1,0 +1,27 @@
+<dom-module id="img-test">
+
+    <style>
+
+    </style>
+
+    <template>
+        img-test
+    </template>
+
+    <script>
+    Polymer({
+
+        is: "img-test",
+
+        listeners: {
+            "rerender": "urlChange"
+        },
+
+        urlChange: function(e) {
+            console.log("urlChange", e.detail);
+        }
+
+    });
+    </script>
+
+</dom-module>
