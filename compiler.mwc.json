@@ -1,0 +1,16 @@
+{
+    "append": [
+        "index.html"
+    ],
+    "import": [
+        "bower_components/font-roboto/roboto.html",
+        "bower_components/mwc-layout/mwc-layout.html",
+        "bower_components/polymer/polymer.html",
+        "img-test.html",
+        "text-test.html",
+        "registered-test.html",
+        "un-registered-test.html"
+    ],
+    "root": ".polymer"
+}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
