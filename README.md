@@ -1,15 +1,7 @@
-mwcLayout.render("profile", {
-    region: {
-        img: new Registered()
-    }
-});
+mwcLayout.render("profile", {img: new Registered()});
 
 document.registerElement('un-registered-test', UnRegistered); // Polymer.Class()
 
-mwcLayout.render("profile", {
-    region: {
-        img: new UnRegistered()
-    }
-});
+mwcLayout.render("profile", {img: new UnRegistered()});
 
 fire "rerender" event on same layout multiple call
