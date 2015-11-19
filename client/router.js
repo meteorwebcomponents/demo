@@ -27,5 +27,9 @@ FlowRouter.route("/sign-in", {
             body_A: "mwc-card-route-body-1",
             body_Z: "mwc-card-route-body-2"
         });
+
+        if (q.hasOwnProperty("selected")) {
+            document.querySelector("#mwc-card-selector").selected = q.selected;
+        }
     }
 });
