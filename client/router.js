@@ -28,8 +28,8 @@ FlowRouter.route("/sign-in", {
             body_Z: "mwc-card-route-body-2"
         });
 
-        if (q.hasOwnProperty("selected")) {
-            document.querySelector("#mwc-card-selector").selected = q.selected;
+        if (q.hasOwnProperty("selected") && q.selected == 1) {
+            document.querySelector("#div-button-1").click();
         }
     }
 });
