@@ -4,9 +4,9 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 
     <title>MWC</title>
-    <link href="/img/icon.png" rel="shortcut icon">
+    <link href="img/icon.png" rel="shortcut icon">
 
-    <script src="/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 </head>
 
 <body>
@@ -73,6 +73,113 @@
     }, false);
     </script>
 
+    <style>
+    img {
+        background: white;
+        border: 2px solid white;
+        border-radius: 50%;
+        cursor: pointer;
+        margin: 16px 4px;
+        width: 40px
+    }
+    </style>
+
+    <mwc-layout id="contributor">
+        <neon-animated-pages class="fit" id="mwc-tile-selector" selected="0">
+            <mwc-tile-router id="mwc-tile-router">
+                <div class="fit layout vertical">
+                    <div class="center-center flex layout vertical">
+                        mwc-tile-router-body
+                    </div>
+
+                    <div class="center center-justified horizontal layout">
+                        <img class="circle" data-route="1" src="https://lh3.googleusercontent.com/-vUdlKy5uzfY/AAAAAAAAAAI/AAAAAAAAAE0/Rfz4FAJeCQE/s120-c/photo.jpg">
+                        <img class="circle" data-route="2" src="https://lh3.googleusercontent.com/-IM1Ie8sSXcU/AAAAAAAAAAI/AAAAAAAAHhw/D_fsmcQe1h4/s120-c/photo.jpg">
+                        <img class="circle" data-route="3" src="https://lh3.googleusercontent.com/-B30SkTVx5TQ/AAAAAAAAAAI/AAAAAAAAAJs/Jr2EeJ4JutA/s120-c/photo.jpg">
+                        <img class="circle" data-route="4" src="https://lh3.googleusercontent.com/-oP_FKBNB_S8/AAAAAAAAAAI/AAAAAAAAAhU/bg9hKrkvgLY/s120-c/photo.jpg">
+                    </div>
+                </div>
+            </mwc-tile-router>
+
+            <mwc-tile-route id="mwc-tile-route"></mwc-tile-route>
+        </neon-animated-pages>
+
+        <div region="toast"></div>
+    </mwc-layout>
+
+    <script>
+    $(".circle").on("click", function(e) {
+        console.log(".circle clicked");
+
+        var circle = document.querySelectorAll(".circle"),
+            nodeToScale = [];
+
+        for (var node, index = 0; node = circle[index]; index++) {
+            if (node !== e.target) {
+                nodeToScale.push(node);
+            }
+        }
+
+        switch (e.target.dataset.route) {
+            case "1":
+                document.querySelector("#mwc-tile-route").profile = {
+                    email: "tejas.kumar@gmail.com",
+                    fb: "https://www.facebook.com/sujith3g",
+                    google: "https://plus.google.com/u/0/114305368951465720774",
+                    img: "https://lh3.googleusercontent.com/-vUdlKy5uzfY/AAAAAAAAAAI/AAAAAAAAAE0/Rfz4FAJeCQE/s120-c/photo.jpg",
+                    text: "Tejas Kumar"
+                }
+                break;
+
+            case "2":
+                document.querySelector("#mwc-tile-route").profile = {
+                    email: "sujith.g@gmail.com ",
+                    fb: "https://www.facebook.com/sujith3g",
+                    google: "https://plus.google.com/u/0/+SujithGanapathiyil",
+                    img: "https://lh3.googleusercontent.com/-IM1Ie8sSXcU/AAAAAAAAAAI/AAAAAAAAHhw/D_fsmcQe1h4/s120-c/photo.jpg",
+                    meteor: "https://atmospherejs.com/sujith3g",
+                    text: "Sujith G"
+                }
+                break;
+
+            case "3":
+                document.querySelector("#mwc-tile-route").profile = {
+                    email: "arun.tk@gmail.com",
+                    fb: "https://www.facebook.com/AJLambesis",
+                    google: "https://plus.google.com/u/0/104862744011560290418",
+                    img: "https://lh3.googleusercontent.com/-B30SkTVx5TQ/AAAAAAAAAAI/AAAAAAAAAJs/Jr2EeJ4JutA/s120-c/photo.jpg",
+                    text: "Arun TK"
+                }
+                break;
+
+            case "4":
+                document.querySelector("#mwc-tile-route").profile = {
+                    email: "linto.cet@gmail.com",
+                    fb: "https://www.facebook.com/linto.cet",
+                    google: "https://plus.google.com/u/0/+LintoCheeran",
+                    img: "https://lh3.googleusercontent.com/-oP_FKBNB_S8/AAAAAAAAAAI/AAAAAAAAAhU/bg9hKrkvgLY/s120-c/photo.jpg",
+                    meteor: "https://atmospherejs.com/linto",
+                    text: "Linto Cheeran",
+                    twitter: "https://twitter.com/linto_cheeran"
+                }
+                break;
+        }
+
+        document.querySelector("#mwc-tile-router").animationConfig["exit"][1].nodes = nodeToScale;
+        document.querySelector("#mwc-tile-router").sharedElements = {
+            "hero": e.target
+        };
+
+        document.querySelector("#mwc-tile-selector").selected = 1;
+    });
+
+    $(".back").on("click", function(e) {
+        console.log(".back clicked");
+
+        document.querySelector("#mwc-tile-selector").selected = 0;
+    });
+    </script>
+
     <mwc-layout id="profile">
         <div>#dynamic region</div>
         <div class="horizontal justified layout">
@@ -82,10 +189,18 @@
 
         <br>
 
-        <div>#route switching</div>
+        <div>#card routing</div>
         <div class="layout vertical">
-            <a href="/sign-in">sign-in</a>
-            <a href="/sign-in?selected=1">sign-in 1'st page</a>
+            <a href="/sign-in">demo</a>
+            <a href="/sign-in?selected=1">direct demo pageNo 1</a>
+        </div>
+
+        <br>
+
+        <div>#tile routing</div>
+        <div class="layout vertical">
+            <a href="/contributor">demo</a>
+            <a href="/contributor?selected=4">linto's profile</a>
         </div>
     </mwc-layout>
 </body>

@@ -12,16 +12,23 @@
         "bower_components/neon-animation/neon-animations.html",
         "bower_components/neon-animation/neon-shared-element-animatable-behavior.html",
         "bower_components/paper-icon-button/paper-icon-button.html",
+        "bower_components/paper-item/paper-icon-item.html",
+        "bower_components/paper-item/paper-item.html",
+        "bower_components/paper-item/paper-item-body.html",
+        "bower_components/paper-styles/paper-styles.html",
+        "bower_components/paper-toast/paper-toast.html",
         "bower_components/polymer/polymer.html",
         "img-test.html",
+        "linto/polymer-toast.html",
         "mwc-card-router/mwc-card-route.html",
         "mwc-card-router/mwc-card-router.html",
         "mwc-card-route-body-1.html",
         "mwc-card-route-body-2.html",
+        "mwc-tile-router/mwc-tile-route.html",
+        "mwc-tile-router/mwc-tile-router.html",
         "text-test.html",
         "registered-test.html",
         "un-registered-test.html"
     ],
     "root": ".polymer"
 }
-                        

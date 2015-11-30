@@ -1,1 +1,1 @@
-[more](https://github.com/meteorwebcomponents/layout)
+Advanced Example - https://github.com/HedCET/TorrentAlert

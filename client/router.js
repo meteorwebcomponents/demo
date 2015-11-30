@@ -33,3 +33,18 @@ FlowRouter.route("/sign-in", {
         }
     }
 });
+
+FlowRouter.route("/contributor", {
+    name: "contributor",
+    action: function(p, q) {
+        console.log("@contributor");
+
+        mwcLayout.render("contributor", {
+            toast: "polymer-toast"
+        });
+
+        if (q.hasOwnProperty("selected") && q.selected == 4) {
+            document.querySelector('.circle[data-route="4"]').click()
+        }
+    }
+});
