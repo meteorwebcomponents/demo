@@ -15029,7 +15029,7 @@ mwcLayout = new PolymerLayout();
 
     <template>
         <div class="center-center layout vertical" id="header">
-            <paper-icon-item class="back">
+            <paper-icon-item class="back" on-click="back">
                 <img item-icon="" src="[[profile.img]]">
                 <paper-item-body two-line="">
                     <div>[[profile.text]]</div>
@@ -15048,6 +15048,12 @@ mwcLayout = new PolymerLayout();
 
     <script>
     Polymer({
+
+        back: function() {
+            console.log("back clicked");
+
+            document.querySelector("#mwc-tile-selector").selected = 0;
+        },
 
         behaviors: [
             Polymer.NeonSharedElementAnimatableBehavior
@@ -15266,4 +15272,4 @@ mwcLayout = new PolymerLayout();
     </script>
 
 </dom-module>
-</div></body></html>               
+</div></body></html>
