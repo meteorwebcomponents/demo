@@ -14782,6 +14782,100 @@ mwcLayout = new PolymerLayout();
     </script>
 
 </dom-module>
+<dom-module id="selectable-icon" assetpath="/linto/">
+
+    <style>
+    .icon {
+        background: #EEE;
+        border-radius: 50%;
+        color: black;
+        height: 40px;
+        overflow: hidden;
+        transition: transform 400ms ease-in-out;
+        width: 40px;
+        will-change: transform;
+    }
+    
+    img,
+    .letter {
+        border-radius: inherit;
+        font-size: 1.15em;
+        height: 100%;
+        text-transform: uppercase;
+        transition: opacity 200ms ease-in-out 200ms;
+        width: 100%;
+        will-change: opacity;
+    }
+    
+    iron-icon {
+        left: 20%;
+        position: absolute!important;
+        opacity: 0;
+        top: 20%;
+        transform: rotate3d(0, 1, 0, 180deg) scale(0);
+        transition: transform 200ms ease-in-out 200ms;
+        will-change: opacity;
+    }
+    
+    :host([selected]) .icon {
+        transform: rotate3d(0, 1, 0, -180deg);
+    }
+    
+    :host([selected]) img,
+    :host([selected]) .letter {
+        opacity: 0;
+    }
+    
+    :host([selected]) iron-icon {
+        transform: rotate3d(0, 1, 0, -180deg) scale(1);
+        opacity: 1;
+    }
+    </style>
+
+    <template>
+        <div class="icon">
+            <template if="[[icon_img_src]]" is="dom-if">
+                <img class$="[[icon_class]]" src$="[[icon_img_src]]">
+            </template>
+
+            <span class$="[[icon_text_class('center-center horizontal layout letter', icon_class)]]" hidden$="[[icon_img_src]]">[[icon_text]]</span>
+
+            <iron-icon icon="check"></iron-icon>
+        </div>
+    </template>
+
+    <script>
+    Polymer({
+
+        is: "selectable-icon",
+
+        properties: {
+            icon_class: {
+                type: String,
+                value: null
+            },
+            icon_img_src: {
+                type: String,
+                value: null
+            },
+            icon_text: {
+                type: String,
+                value: null
+            },
+            selected: {
+                type: Boolean,
+                value: false
+            }
+        },
+
+        icon_text_class: function(A, Z) {
+            return (A ? A + " " : "") + (Z ? Z : "");
+        }
+
+    });
+    </script>
+
+</dom-module>
 <dom-module id="mwc-card-route" assetpath="/mwc-card-router/">
 
     <style>
@@ -14999,6 +15093,182 @@ mwcLayout = new PolymerLayout();
 
         urlChange: function(e) {
             console.log("urlChange", e.detail);
+        }
+
+    });
+    </script>
+
+</dom-module>
+<dom-module id="mwc-list-item" assetpath="/mwc-list-router/">
+
+    <style>
+    :host {
+        /*background: transparent!important;*/
+    }
+    </style>
+
+    <template>
+        item
+    </template>
+
+    <script>
+    Polymer({
+
+        is: "mwc-list-item"
+
+    });
+    </script>
+
+</dom-module>
+<dom-module id="mwc-list-router" assetpath="/mwc-list-router/">
+
+    <style>
+    .bordered {
+        border: 1px solid #EEE;
+        border-width: 2px 4px;
+    }
+    
+    .cursor-p {
+        cursor: pointer;
+    }
+    
+    .hover:hover {
+        background: #EEE;
+    }
+    
+    .li {
+        width: 480px;
+    }
+    
+    @media (max-width: 480px) {
+        .li {
+            width: 100%;
+        }
+    }
+    
+    @media (min-width: 480px) {
+        .li {
+            width: 480px;
+        }
+    }
+    </style>
+
+    <template>
+        <div class="center-justified horizontal layout">
+            <div class="li">
+                <template is="dom-repeat" items="[[list]]">
+                    <div class="bordered cursor-p horizontal hover justified layout white" data-index$="[[index]]" on-click="click">
+                        <div style="padding: 16px; padding-right: 8px;">
+                            <selectable-icon icon_class$="[[return_class(item.category)]]" icon_text$="[[return_text(item.link.length)]]" id="selectable_icon" selected$="[[selected]]"></selectable-icon>
+                        </div>
+
+                        <div class="flex layout vertical" style="padding: 16px; padding-left: 8px;">
+                            <div style="color: #757575; font-size: 14px; line-height: 20px;">[[return_description(item)]]</div>
+                            <div style="font-size: 16px; line-height: 24px;">[[item.title]]</div>
+                            <div style="color: #757575; font-size: 14px; line-height: 20px; text-align: right;">[[return_time(item.time)]]</div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+
+    <script>
+    Polymer({
+
+        click: function(e) {
+            if (Polymer.dom(e).localTarget.id != "selectable_icon") {
+                e.stopPropagation();
+
+                document.querySelector("#mwc-list-selector").selected = 1;
+            }
+        },
+
+        is: "mwc-list-router",
+
+        properties: {
+            list: {
+                type: Array,
+                value: function() {
+                    return [{
+                        "_id": "xfnrHHW6r6PMzidkR",
+                        "category": "divx xvid",
+                        "leech": "2310",
+                        "link": [{
+                            "text": "1337x.to",
+                            "time": "2015-12-01T02:00:01-05:00",
+                            "url": "https://1337x.to/torrent/1375199/Supergirl-S01E06-HDTV-x264-LOL-ettv/"
+                        }, {
+                            "text": "torrenthound.com",
+                            "time": "2015-12-01T04:00:01-05:00",
+                            "url": "http://www.torrenthound.com/hash/cfdef20b9c75227a4ec8a7604e38cf2cfc33281b/torrent-info/Supergirl-S01E06-HDTV-x264-LOL-ettv-"
+                        }, {
+                            "text": "torrentfunk.com",
+                            "time": "2015-12-01T06:36:29-05:00",
+                            "url": "http://www.torrentfunk.com/torrent/12161435/supergirl-s01e06-lolettv.html"
+                        }, {
+                            "text": "kat.cr",
+                            "time": "2015-12-01T10:00:02-05:00",
+                            "url": "https://kat.cr/supergirl-s01e06-hdtv-x264-lol-ettv-t11679460.html"
+                        }, {
+                            "text": "rarbg.com",
+                            "time": "2015-12-01T10:11:02-05:00",
+                            "url": "https://rarbg.com/torrents/filmi/download/3o8b6tw/torrent.html"
+                        }, {
+                            "text": "yourbittorrent.com",
+                            "time": "2015-12-01T10:33:03-05:00",
+                            "url": "http://www.yourbittorrent.com/torrent/9212392/supergirl-s01e06-lolettv.html"
+                        }, {
+                            "text": "torrentproject.se",
+                            "time": "2015-12-01T10:40:07-05:00",
+                            "url": "https://torrentproject.se/cfdef20b9c75227a4ec8a7604e38cf2cfc33281b/"
+                        }],
+                        "seed": "2973",
+                        "size": "318MB",
+                        "time": "2015-12-01T07:23:18-05:00",
+                        "title": "Supergirl S01E06 HDTV x264 LOL ettv",
+                        "url": "cfdef20b9c75227a4ec8a7604e38cf2cfc33281b"
+                    }, {
+                        "_id": "9PmGBJeExcQJRLhrm",
+                        "category": "hd",
+                        "leech": "843",
+                        "link": [{
+                            "text": "bitsnoop.com",
+                            "time": "2015-11-30T04:41:37-05:00",
+                            "url": "http://bitsnoop.com/the-good-wife-s07e09-720p-hdtv-x264-q78128685.html"
+                        }, {
+                            "text": "1337x.to",
+                            "time": "2015-11-30T12:00:01-05:00",
+                            "url": "https://1337x.to/torrent/1374378/The-Good-Wife-S07E09-720p-HDTV-X264-DIMENSION-eztv-mkv/"
+                        }, {
+                            "text": "torrentproject.se",
+                            "time": "2015-11-30T22:40:09-05:00",
+                            "url": "https://torrentproject.se/c38cc9fd5d86a9ca75d619187227f666b44f0927/"
+                        }],
+                        "seed": "1388",
+                        "size": "",
+                        "time": "2015-11-30T10:59:27-05:00",
+                        "title": "The Good Wife S07E09 720p HDTV X264 DIMENSION eztv mkv",
+                        "url": "c38cc9fd5d86a9ca75d619187227f666b44f0927"
+                    }];
+                }
+            }
+        },
+
+        return_class: function(text) {
+            return polymer_color(text ? text : "#");
+        },
+
+        return_description: function(item) {
+            return (item.size ? item.size : "#") + " | " + (item.leech ? item.leech + "L" : "#") + " / " + (item.seed ? item.seed + "S" : "#");
+        },
+
+        return_text: function(text) {
+            return (text ? text : "#");
+        },
+
+        return_time: function(time) {
+            return (moment(time).isValid() ? moment(time).fromNow() : "#");
         }
 
     });

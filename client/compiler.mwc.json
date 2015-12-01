@@ -1,6 +1,7 @@
 {
     "append": [
-        "index.html"
+        "index.html",
+        "polymer_color.html"
     ],
     "import": [
         "bower_components/font-roboto/roboto.html",
@@ -20,10 +21,13 @@
         "bower_components/polymer/polymer.html",
         "img-test.html",
         "linto/polymer-toast.html",
+        "linto/selectable-icon.html",
         "mwc-card-router/mwc-card-route.html",
         "mwc-card-router/mwc-card-router.html",
         "mwc-card-route-body-1.html",
         "mwc-card-route-body-2.html",
+        "mwc-list-router/mwc-list-item.html",
+        "mwc-list-router/mwc-list-router.html",
         "mwc-tile-router/mwc-tile-route.html",
         "mwc-tile-router/mwc-tile-router.html",
         "text-test.html",

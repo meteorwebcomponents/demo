@@ -34,6 +34,22 @@ FlowRouter.route("/sign-in", {
     }
 });
 
+FlowRouter.route("/list", {
+    name: "list",
+    action: function(p, q) {
+        console.log("@list");
+
+        mwcLayout.render("list", {
+            list: "mwc-list-router",
+            item: "mwc-list-item"
+        });
+
+        if (q.hasOwnProperty("selected") && q.selected == 4) {
+            // document.querySelector('.circle[data-route="4"]').click()
+        }
+    }
+});
+
 FlowRouter.route("/contributor", {
     name: "contributor",
     action: function(p, q) {

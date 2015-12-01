@@ -13,4 +13,5 @@ standard-minifiers      # JS/CSS minifiers run for production mode
 tracker                 # Meteor's client-side reactive programming library
 
 kadira:flow-router
+momentjs:moment
 mwc:compiler
