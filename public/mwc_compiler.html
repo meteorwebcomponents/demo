@@ -15435,19 +15435,17 @@ mwcLayout = new PolymerLayout();
                 <div class="title">mwc-list-item</div>
             </paper-toolbar>
 
-            <div class="center-center flex layout vertical" id="main" style="background: repeating-linear-gradient(45deg, #EEE, #EEE 8px, #CCC 8px, #CCC 16px); overflow: auto;">
+            <div class="flex layout vertical" id="main" style="background: repeating-linear-gradient(45deg, #EEE, #EEE 8px, #CCC 8px, #CCC 16px); overflow: auto;">
                 <template is="dom-repeat" items="[[link]]">
                     <div class="center-justified horizontal layout">
-                        <div class="li">
-                            <div class="cursor-p horizontal justified layout menu-li white">
-                                <div style="padding: 16px; padding-right: 8px;">
-                                    <selectable-icon icon_class$="[[return_class(item.text)]]" icon_text$="[[return_icon_text(item.text)]]"></selectable-icon>
-                                </div>
+                        <div class="cursor-p horizontal justified layout li menu-li white">
+                            <div style="padding: 16px; padding-right: 8px;">
+                                <selectable-icon icon_class$="[[return_class(item.text)]]" icon_text$="[[return_icon_text(item.text)]]"></selectable-icon>
+                            </div>
 
-                                <div class="flex layout vertical" style="padding: 16px; padding-left: 8px;">
-                                    <div class="etc" style="font-size: 16px; line-height: 24px;">[[item.text]]</div>
-                                    <div class="etc" style="color: #757575; font-size: 14px; line-height: 20px;">[[return_time(item.time)]]</div>
-                                </div>
+                            <div class="flex layout vertical" style="padding: 16px; padding-left: 8px;">
+                                <div class="etc" style="font-size: 16px; line-height: 24px;">[[item.text]]</div>
+                                <div class="etc" style="color: #757575; font-size: 14px; line-height: 20px;">[[return_time(item.time)]]</div>
                             </div>
                         </div>
                     </div>
@@ -15581,17 +15579,15 @@ mwcLayout = new PolymerLayout();
 
         <template is="dom-repeat" items="[[list]]">
             <div class="center-justified horizontal layout" data-index$="[[index]]">
-                <div class="li">
-                    <div class="bordered cursor-p horizontal hover justified layout white">
-                        <div style="padding: 16px; padding-right: 8px;">
-                            <selectable-icon icon_class$="[[return_class(item.category)]]" icon_text$="[[return_text(item.link.length)]]" id="selectable_icon" selected$="[[selected]]"></selectable-icon>
-                        </div>
+                <div class="bordered cursor-p horizontal hover justified layout li white">
+                    <div style="padding: 16px; padding-right: 8px;">
+                        <selectable-icon icon_class$="[[return_class(item.category)]]" icon_text$="[[return_text(item.link.length)]]" id="selectable_icon" selected$="[[selected]]"></selectable-icon>
+                    </div>
 
-                        <div class="flex layout vertical" style="padding: 16px; padding-left: 8px;">
-                            <div style="color: #757575; font-size: 14px; line-height: 20px;">[[return_description(item)]]</div>
-                            <div style="font-size: 16px; line-height: 24px;">[[item.title]]</div>
-                            <div style="color: #757575; font-size: 14px; line-height: 20px; text-align: right;">[[return_time(item.time)]]</div>
-                        </div>
+                    <div class="flex layout vertical" style="padding: 16px; padding-left: 8px;">
+                        <div style="color: #757575; font-size: 14px; line-height: 20px;">[[return_description(item)]]</div>
+                        <div style="font-size: 16px; line-height: 24px;">[[item.title]]</div>
+                        <div style="color: #757575; font-size: 14px; line-height: 20px; text-align: right;">[[return_time(item.time)]]</div>
                     </div>
                 </div>
             </div>
@@ -16003,4 +15999,4 @@ mwcLayout = new PolymerLayout();
     </script>
 
 </dom-module>
-</div></body></html>         
+</div></body></html>

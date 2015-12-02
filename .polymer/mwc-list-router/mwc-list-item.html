@@ -44,19 +44,17 @@
                 <div class="title">mwc-list-item</div>
             </paper-toolbar>
 
-            <div class="center-center flex layout vertical" id="main" style="background: repeating-linear-gradient(45deg, #EEE, #EEE 8px, #CCC 8px, #CCC 16px); overflow: auto;">
+            <div class="flex layout vertical" id="main" style="background: repeating-linear-gradient(45deg, #EEE, #EEE 8px, #CCC 8px, #CCC 16px); overflow: auto;">
                 <template is="dom-repeat" items="[[link]]">
                     <div class="center-justified horizontal layout">
-                        <div class="li">
-                            <div class="cursor-p horizontal justified layout menu-li white">
-                                <div style="padding: 16px; padding-right: 8px;">
-                                    <selectable-icon icon_class$="[[return_class(item.text)]]" icon_text$="[[return_icon_text(item.text)]]"></selectable-icon>
-                                </div>
+                        <div class="cursor-p horizontal justified layout li menu-li white">
+                            <div style="padding: 16px; padding-right: 8px;">
+                                <selectable-icon icon_class$="[[return_class(item.text)]]" icon_text$="[[return_icon_text(item.text)]]"></selectable-icon>
+                            </div>
 
-                                <div class="flex layout vertical" style="padding: 16px; padding-left: 8px;">
-                                    <div class="etc" style="font-size: 16px; line-height: 24px;">[[item.text]]</div>
-                                    <div class="etc" style="color: #757575; font-size: 14px; line-height: 20px;">[[return_time(item.time)]]</div>
-                                </div>
+                            <div class="flex layout vertical" style="padding: 16px; padding-left: 8px;">
+                                <div class="etc" style="font-size: 16px; line-height: 24px;">[[item.text]]</div>
+                                <div class="etc" style="color: #757575; font-size: 14px; line-height: 20px;">[[return_time(item.time)]]</div>
                             </div>
                         </div>
                     </div>
