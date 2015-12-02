@@ -44,8 +44,8 @@ FlowRouter.route("/list", {
             item: "mwc-list-item"
         });
 
-        if (q.hasOwnProperty("selected") && q.selected == 4) {
-            // document.querySelector('.circle[data-route="4"]').click()
+        if (q.hasOwnProperty("selected") && q.selected == 1) {
+            document.querySelector('div[data-index="1"]').click()
         }
     }
 });

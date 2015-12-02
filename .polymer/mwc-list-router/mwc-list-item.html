@@ -2,18 +2,134 @@
 
     <style>
     :host {
-        /*background: transparent!important;*/
+        background: transparent!important;
+    }
+    
+    .cursor-p {
+        cursor: pointer;
+    }
+    
+    .etc {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .li {
+        width: 480px;
+    }
+    
+    @media (max-width: 480px) {
+        .li {
+            width: 100%;
+        }
+    }
+    
+    @media (min-width: 480px) {
+        .li {
+            width: 480px;
+        }
+    }
+    
+    .menu-li {
+        border-bottom: 2px solid #EEE;
+        border-top: 2px solid #EEE;
     }
     </style>
 
     <template>
-        item
+        <div class="fit layout vertical">
+            <paper-toolbar>
+                <paper-icon-button icon="close" id="button" on-click="back"></paper-icon-button>
+                <div class="title">mwc-list-item</div>
+            </paper-toolbar>
+
+            <div class="center-center flex layout vertical" id="main" style="background: repeating-linear-gradient(45deg, #EEE, #EEE 8px, #CCC 8px, #CCC 16px); overflow: auto;">
+                <template is="dom-repeat" items="[[link]]">
+                    <div class="center-justified horizontal layout">
+                        <div class="li">
+                            <div class="cursor-p horizontal justified layout menu-li white">
+                                <div style="padding: 16px; padding-right: 8px;">
+                                    <selectable-icon icon_class$="[[return_class(item.text)]]" icon_text$="[[return_icon_text(item.text)]]"></selectable-icon>
+                                </div>
+
+                                <div class="flex layout vertical" style="padding: 16px; padding-left: 8px;">
+                                    <div class="etc" style="font-size: 16px; line-height: 24px;">[[item.text]]</div>
+                                    <div class="etc" style="color: #757575; font-size: 14px; line-height: 20px;">[[return_time(item.time)]]</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
     </template>
 
     <script>
     Polymer({
 
-        is: "mwc-list-item"
+        back: function() {
+            document.querySelector("#mwc-list-selector").selected = 0;
+        },
+
+        behaviors: [
+            Polymer.NeonAnimatableBehavior
+        ],
+
+        is: "mwc-list-item",
+
+        properties: {
+            animationConfig: {
+                type: Object,
+                value: function() {
+                    return {
+                        "entry": [{
+                            name: "fade-in-animation",
+                            node: this.$.button
+                        }, {
+                            id: "hero",
+                            name: "hero-animation",
+                            toPage: this
+                        }],
+
+                        "exit": [{
+                            name: "fade-out-animation",
+                            node: this.$.button
+                        }, {
+                            axis: "y",
+                            name: "scale-down-animation",
+                            node: this.$.main,
+                            transformOrigin: "50% 50%"
+                        }]
+                    }
+                }
+            },
+
+            link: {
+                type: Object
+            },
+
+            sharedElements: {
+                type: Object,
+                value: function() {
+                    return {
+                        "hero": this.$.main
+                    };
+                }
+            }
+        },
+
+        return_class: function(text) {
+            return polymer_color(text ? text : "#");
+        },
+
+        return_icon_text: function(text) {
+            return (isNaN(text.charAt(0)) ? text.charAt(0) : "#");
+        },
+
+        return_time: function(time) {
+            return (moment(time).isValid() ? moment(time).fromNow() : "#");
+        }
 
     });
     </script>

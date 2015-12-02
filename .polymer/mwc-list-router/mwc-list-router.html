@@ -1,6 +1,14 @@
 <dom-module id="mwc-list-router">
 
     <style>
+    :host {
+        background: transparent!important;
+    }
+    
+    paper-toolbar paper-icon-button {
+        margin: 0!important;
+    }
+    
     .bordered {
         border: 1px solid #EEE;
         border-width: 2px 4px;
@@ -8,6 +16,12 @@
     
     .cursor-p {
         cursor: pointer;
+    }
+    
+    .etc {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     
     .hover:hover {
@@ -32,10 +46,15 @@
     </style>
 
     <template>
-        <div class="center-justified horizontal layout">
-            <div class="li">
-                <template is="dom-repeat" items="[[list]]">
-                    <div class="bordered cursor-p horizontal hover justified layout white" data-index$="[[index]]" on-click="click">
+        <paper-toolbar>
+            <paper-icon-button icon="menu" id="button"></paper-icon-button>
+            <div class="title">mwc-list-router</div>
+        </paper-toolbar>
+
+        <template is="dom-repeat" items="[[list]]">
+            <div class="center-justified horizontal layout" data-index$="[[index]]">
+                <div class="li">
+                    <div class="bordered cursor-p horizontal hover justified layout white">
                         <div style="padding: 16px; padding-right: 8px;">
                             <selectable-icon icon_class$="[[return_class(item.category)]]" icon_text$="[[return_text(item.link.length)]]" id="selectable_icon" selected$="[[selected]]"></selectable-icon>
                         </div>
@@ -46,25 +65,61 @@
                             <div style="color: #757575; font-size: 14px; line-height: 20px; text-align: right;">[[return_time(item.time)]]</div>
                         </div>
                     </div>
-                </template>
+                </div>
             </div>
-        </div>
+        </template>
     </template>
 
     <script>
     Polymer({
 
-        click: function(e) {
-            if (Polymer.dom(e).localTarget.id != "selectable_icon") {
-                e.stopPropagation();
+        _on_click: function(e) {
+            var target = e.target;
 
-                document.querySelector("#mwc-list-selector").selected = 1;
+            while (target !== this && !target._templateInstance) {
+                target = target.parentNode;
             }
+
+            this.sharedElements = {
+                "hero": target,
+            };
+
+            document.querySelector("mwc-list-item").link = this.list[target.dataset.index].link;
+            document.querySelector("#mwc-list-selector").selected = 1;
         },
+
+        behaviors: [
+            Polymer.NeonAnimatableBehavior
+        ],
 
         is: "mwc-list-router",
 
+        listeners: {
+            "click": "_on_click"
+        },
+
         properties: {
+            animationConfig: {
+                type: Object,
+                value: function() {
+                    return {
+                        "entry": [{
+                            name: "fade-in-animation",
+                            node: this.$.button
+                        }],
+
+                        "exit": [{
+                            name: "fade-out-animation",
+                            node: this.$.button
+                        }, {
+                            fromPage: this,
+                            id: "hero",
+                            name: "hero-animation"
+                        }]
+                    };
+                }
+            },
+
             list: {
                 type: Array,
                 value: function() {

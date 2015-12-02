@@ -12691,6 +12691,8 @@ context. You should place this element as a child of `<body>` whenever possible.
 </script>
 
 
+
+
 </head><body><div hidden="" by-vulcanize=""><dom-module id="iron-icon" assetpath="/bower_components/iron-icon/">
 
   <style>
@@ -14670,6 +14672,294 @@ mwcLayout = new PolymerLayout();
     })();
   </script>
 </dom-module>
+<dom-module id="paper-toolbar" assetpath="/bower_components/paper-toolbar/">
+  <template>
+    <style>
+      :host {
+        /* technical */
+        display: block;
+        position: relative;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+
+        /* size */
+        height: var(--paper-toolbar-height, 64px);
+
+        background: var(--paper-toolbar-background, --default-primary-color);
+        color: var(--paper-toolbar-color, --text-primary-color);
+
+        @apply(--paper-toolbar);
+      }
+
+      :host(.animate) {
+        /* transition */
+        transition: height 0.18s ease-in;
+      }
+
+      :host(.medium-tall) {
+        height: calc(var(--paper-toolbar-height, 64px) * 2);
+        @apply(--paper-toolbar-medium);
+      }
+
+      :host(.tall) {
+        height: calc(var(--paper-toolbar-height, 64px) * 3);
+        @apply(--paper-toolbar-tall);
+      }
+
+      .toolbar-tools {
+        position: relative;
+        height: var(--paper-toolbar-height, 64px);
+        padding: 0 16px;
+        pointer-events: none;
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+      }
+
+      /*
+       * TODO: Where should media query breakpoints live so they can be shared between elements?
+       */
+
+      @media (max-width: 639px) {
+        :host {
+          height: var(--paper-toolbar-sm-height, 56px);
+        }
+
+        :host(.medium-tall) {
+          height: calc(var(--paper-toolbar-sm-height, 56px) * 2);
+        }
+
+        :host(.tall) {
+          height: calc(var(--paper-toolbar-sm-height, 56px) * 3);
+        }
+
+        .toolbar-tools {
+          height: var(--paper-toolbar-sm-height, 56px);
+        }
+      }
+
+      #topBar {
+        position: relative;
+      }
+
+      /* middle bar */
+      #middleBar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+      }
+
+      :host(.tall) #middleBar,
+      :host(.medium-tall) #middleBar {
+        -webkit-transform: translateY(100%);
+        transform: translateY(100%);
+      }
+
+      /* bottom bar */
+      #bottomBar {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      /*
+       * make elements (e.g. buttons) respond to mouse/touch events
+       *
+       * `.toolbar-tools` disables touch events so multiple toolbars can stack and not
+       * absorb events. All children must have pointer events re-enabled to work as
+       * expected.
+       */
+      .toolbar-tools > ::content > *:not([disabled]) {
+        pointer-events: auto;
+      }
+
+      .toolbar-tools > ::content .title {
+        @apply(--paper-font-common-base);
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1;
+        pointer-events: none;
+
+        @apply(--layout-flex);
+        @apply(--paper-toolbar-title);
+      }
+
+      /**
+       * TODO: Refactor these selectors
+       * Work in progress.
+       */
+      .toolbar-tools > ::content paper-icon-button[icon=menu] {
+        margin-right: 24px;
+      }
+
+      .toolbar-tools > ::content > .title,
+      .toolbar-tools > ::content[select=".middle"] > .title,
+      .toolbar-tools > ::content[select=".bottom"] > .title {
+        margin-left: 56px;
+      }
+
+      .toolbar-tools > ::content > paper-icon-button + .title,
+      .toolbar-tools > ::content[select=".middle"] paper-icon-button + .title,
+      .toolbar-tools > ::content[select=".bottom"] paper-icon-button + .title {
+        margin-left: 0;
+      }
+
+      .toolbar-tools > ::content > .fit {
+        position: absolute;
+        top: auto;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: auto;
+        margin: 0;
+      }
+
+      /* TODO(noms): Until we have a better solution for classes that don't use
+       * /deep/ create our own.
+       */
+      .start-justified {
+        @apply(--layout-start-justified);
+      }
+
+      .center-justified {
+        @apply(--layout-center-justified);
+      }
+
+      .end-justified {
+        @apply(--layout-end-justified);
+      }
+
+      .around-justified {
+        @apply(--layout-around-justified);
+      }
+
+      .justified {
+        @apply(--layout-justified);
+      }
+    </style>
+
+    <div id="topBar" class$="toolbar-tools [[_computeBarExtraClasses(justify)]]">
+      <content select=":not(.middle):not(.bottom)"></content>
+    </div>
+
+    <div id="middleBar" class$="toolbar-tools [[_computeBarExtraClasses(middleJustify)]]">
+      <content select=".middle"></content>
+    </div>
+
+    <div id="bottomBar" class$="toolbar-tools [[_computeBarExtraClasses(bottomJustify)]]">
+      <content select=".bottom"></content>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'paper-toolbar',
+
+      hostAttributes: {
+        'role': 'toolbar'
+      },
+
+      properties: {
+        /**
+         * Controls how the items are aligned horizontally when they are placed
+         * at the bottom.
+         * Options are `start`, `center`, `end`, `justified` and `around`.
+         *
+         * @attribute bottomJustify
+         * @type string
+         * @default ''
+         */
+        bottomJustify: {
+          type: String,
+          value: ''
+        },
+
+        /**
+         * Controls how the items are aligned horizontally.
+         * Options are `start`, `center`, `end`, `justified` and `around`.
+         *
+         * @attribute justify
+         * @type string
+         * @default ''
+         */
+        justify: {
+          type: String,
+          value: ''
+        },
+
+        /**
+         * Controls how the items are aligned horizontally when they are placed
+         * in the middle.
+         * Options are `start`, `center`, `end`, `justified` and `around`.
+         *
+         * @attribute middleJustify
+         * @type string
+         * @default ''
+         */
+        middleJustify: {
+          type: String,
+          value: ''
+        }
+
+      },
+
+      attached: function() {
+        this._observer = this._observe(this);
+        this._updateAriaLabelledBy();
+      },
+
+      detached: function() {
+        if (this._observer) {
+          this._observer.disconnect();
+        }
+      },
+
+      _observe: function(node) {
+        var observer = new MutationObserver(function() {
+          this._updateAriaLabelledBy();
+        }.bind(this));
+        observer.observe(node, {
+          childList: true,
+          subtree: true
+        });
+        return observer;
+      },
+
+      _updateAriaLabelledBy: function() {
+        var labelledBy = [];
+        var contents = Polymer.dom(this.root).querySelectorAll('content');
+        for (var content, index = 0; content = contents[index]; index++) {
+          var nodes = Polymer.dom(content).getDistributedNodes();
+          for (var node, jndex = 0; node = nodes[jndex]; jndex++) {
+            if (node.classList && node.classList.contains('title')) {
+              if (node.id) {
+                labelledBy.push(node.id);
+              } else {
+                var id = 'paper-toolbar-label-' + Math.floor(Math.random() * 10000);
+                node.id = id;
+                labelledBy.push(id);
+              }
+            }
+          }
+        }
+        if (labelledBy.length > 0) {
+          this.setAttribute('aria-labelledby', labelledBy.join(' '));
+        }
+      },
+
+      _computeBarExtraClasses: function(barJustify) {
+        if (!barJustify) return '';
+
+        return barJustify + (barJustify === 'justified' ? '' : '-justified');
+      }
+    });
+  </script>
+</dom-module>
 <dom-module id="img-test" assetpath="//">
 
     <style>
@@ -15103,18 +15393,134 @@ mwcLayout = new PolymerLayout();
 
     <style>
     :host {
-        /*background: transparent!important;*/
+        background: transparent!important;
+    }
+    
+    .cursor-p {
+        cursor: pointer;
+    }
+    
+    .etc {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .li {
+        width: 480px;
+    }
+    
+    @media (max-width: 480px) {
+        .li {
+            width: 100%;
+        }
+    }
+    
+    @media (min-width: 480px) {
+        .li {
+            width: 480px;
+        }
+    }
+    
+    .menu-li {
+        border-bottom: 2px solid #EEE;
+        border-top: 2px solid #EEE;
     }
     </style>
 
     <template>
-        item
+        <div class="fit layout vertical">
+            <paper-toolbar>
+                <paper-icon-button icon="close" id="button" on-click="back"></paper-icon-button>
+                <div class="title">mwc-list-item</div>
+            </paper-toolbar>
+
+            <div class="center-center flex layout vertical" id="main" style="background: repeating-linear-gradient(45deg, #EEE, #EEE 8px, #CCC 8px, #CCC 16px); overflow: auto;">
+                <template is="dom-repeat" items="[[link]]">
+                    <div class="center-justified horizontal layout">
+                        <div class="li">
+                            <div class="cursor-p horizontal justified layout menu-li white">
+                                <div style="padding: 16px; padding-right: 8px;">
+                                    <selectable-icon icon_class$="[[return_class(item.text)]]" icon_text$="[[return_icon_text(item.text)]]"></selectable-icon>
+                                </div>
+
+                                <div class="flex layout vertical" style="padding: 16px; padding-left: 8px;">
+                                    <div class="etc" style="font-size: 16px; line-height: 24px;">[[item.text]]</div>
+                                    <div class="etc" style="color: #757575; font-size: 14px; line-height: 20px;">[[return_time(item.time)]]</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
     </template>
 
     <script>
     Polymer({
 
-        is: "mwc-list-item"
+        back: function() {
+            document.querySelector("#mwc-list-selector").selected = 0;
+        },
+
+        behaviors: [
+            Polymer.NeonAnimatableBehavior
+        ],
+
+        is: "mwc-list-item",
+
+        properties: {
+            animationConfig: {
+                type: Object,
+                value: function() {
+                    return {
+                        "entry": [{
+                            name: "fade-in-animation",
+                            node: this.$.button
+                        }, {
+                            id: "hero",
+                            name: "hero-animation",
+                            toPage: this
+                        }],
+
+                        "exit": [{
+                            name: "fade-out-animation",
+                            node: this.$.button
+                        }, {
+                            axis: "y",
+                            name: "scale-down-animation",
+                            node: this.$.main,
+                            transformOrigin: "50% 50%"
+                        }]
+                    }
+                }
+            },
+
+            link: {
+                type: Object
+            },
+
+            sharedElements: {
+                type: Object,
+                value: function() {
+                    return {
+                        "hero": this.$.main
+                    };
+                }
+            }
+        },
+
+        return_class: function(text) {
+            return polymer_color(text ? text : "#");
+        },
+
+        return_icon_text: function(text) {
+            return (isNaN(text.charAt(0)) ? text.charAt(0) : "#");
+        },
+
+        return_time: function(time) {
+            return (moment(time).isValid() ? moment(time).fromNow() : "#");
+        }
 
     });
     </script>
@@ -15123,6 +15529,14 @@ mwcLayout = new PolymerLayout();
 <dom-module id="mwc-list-router" assetpath="/mwc-list-router/">
 
     <style>
+    :host {
+        background: transparent!important;
+    }
+    
+    paper-toolbar paper-icon-button {
+        margin: 0!important;
+    }
+    
     .bordered {
         border: 1px solid #EEE;
         border-width: 2px 4px;
@@ -15130,6 +15544,12 @@ mwcLayout = new PolymerLayout();
     
     .cursor-p {
         cursor: pointer;
+    }
+    
+    .etc {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     
     .hover:hover {
@@ -15154,10 +15574,15 @@ mwcLayout = new PolymerLayout();
     </style>
 
     <template>
-        <div class="center-justified horizontal layout">
-            <div class="li">
-                <template is="dom-repeat" items="[[list]]">
-                    <div class="bordered cursor-p horizontal hover justified layout white" data-index$="[[index]]" on-click="click">
+        <paper-toolbar>
+            <paper-icon-button icon="menu" id="button"></paper-icon-button>
+            <div class="title">mwc-list-router</div>
+        </paper-toolbar>
+
+        <template is="dom-repeat" items="[[list]]">
+            <div class="center-justified horizontal layout" data-index$="[[index]]">
+                <div class="li">
+                    <div class="bordered cursor-p horizontal hover justified layout white">
                         <div style="padding: 16px; padding-right: 8px;">
                             <selectable-icon icon_class$="[[return_class(item.category)]]" icon_text$="[[return_text(item.link.length)]]" id="selectable_icon" selected$="[[selected]]"></selectable-icon>
                         </div>
@@ -15168,25 +15593,61 @@ mwcLayout = new PolymerLayout();
                             <div style="color: #757575; font-size: 14px; line-height: 20px; text-align: right;">[[return_time(item.time)]]</div>
                         </div>
                     </div>
-                </template>
+                </div>
             </div>
-        </div>
+        </template>
     </template>
 
     <script>
     Polymer({
 
-        click: function(e) {
-            if (Polymer.dom(e).localTarget.id != "selectable_icon") {
-                e.stopPropagation();
+        _on_click: function(e) {
+            var target = e.target;
 
-                document.querySelector("#mwc-list-selector").selected = 1;
+            while (target !== this && !target._templateInstance) {
+                target = target.parentNode;
             }
+
+            this.sharedElements = {
+                "hero": target,
+            };
+
+            document.querySelector("mwc-list-item").link = this.list[target.dataset.index].link;
+            document.querySelector("#mwc-list-selector").selected = 1;
         },
+
+        behaviors: [
+            Polymer.NeonAnimatableBehavior
+        ],
 
         is: "mwc-list-router",
 
+        listeners: {
+            "click": "_on_click"
+        },
+
         properties: {
+            animationConfig: {
+                type: Object,
+                value: function() {
+                    return {
+                        "entry": [{
+                            name: "fade-in-animation",
+                            node: this.$.button
+                        }],
+
+                        "exit": [{
+                            name: "fade-out-animation",
+                            node: this.$.button
+                        }, {
+                            fromPage: this,
+                            id: "hero",
+                            name: "hero-animation"
+                        }]
+                    };
+                }
+            },
+
             list: {
                 type: Array,
                 value: function() {
@@ -15542,4 +16003,4 @@ mwcLayout = new PolymerLayout();
     </script>
 
 </dom-module>
-</div></body></html>          
+</div></body></html>         

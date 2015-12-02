@@ -18,6 +18,7 @@
         "bower_components/paper-item/paper-item-body.html",
         "bower_components/paper-styles/paper-styles.html",
         "bower_components/paper-toast/paper-toast.html",
+        "bower_components/paper-toolbar/paper-toolbar.html",
         "bower_components/polymer/polymer.html",
         "img-test.html",
         "linto/polymer-toast.html",
